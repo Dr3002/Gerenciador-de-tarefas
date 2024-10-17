@@ -12,6 +12,7 @@ public class TesteAPIController {
 
     @GetMapping("/teste-api-bem-vindo")
     public String testeBemVindo(@RequestParam(name = "nome") String nome){
-        return "Olá "+ nome + " seja muito bem vindo! ";
+        return "Olá "+ nome + " " +
+                "seja muito bem vindo! ";
     }
 }
