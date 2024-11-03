@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Cadastro - Gerenciador de Tarefas</title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Estilos gerais do corpo */
+    body {
+      background-image: linear-gradient(rgba(0, 0, 255, 0.5), rgba(0, 0, 255, 0.5)), url('https://source.unsplash.com/random/1600x900'); /* Imagem de fundo com gradiente azul */
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Container principal */
+    .container {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Estilo moderno nos botões e campos */
+    .form-control {
+      border-radius: 10px;
+    }
+
+    /* Estilo do botão de cadastro */
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+      border-radius: 20px;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    /* Estilo de links */
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+  <div class="card shadow" style="width: 400px;">
+    <div class="card-body">
+      <h4 class="card-title text-center">Cadastro</h4>
+      <form action="/register" method="post">
+        <div class="form-group">
+          <label for="username">Nome de Usuário</label>
+          <input type="text" class="form-control" id="username" name="username" placeholder="Digite seu nome de usuário" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Digite sua senha" required>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" onclick="event.preventDefault(); window.location.href='login.html';">Cadastrar</button>
+        <p class="text-center mt-3">Já tem conta? <a href="login.html">Faça login</a></p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS CDN -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

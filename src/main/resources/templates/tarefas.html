@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Gerenciador de Tarefas - Azul</title>
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #0066cc, #33ccff);
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header e Footer */
+        .header, .footer {
+            background: linear-gradient(135deg, #003366, #3399ff);
+            color: white;
+            padding: 15px 20px;
+            text-align: left;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 1.2px;
+            position: relative;
+        }
+
+        .footer {
+            margin-top: auto; /* Faz o footer ficar no fundo da página */
+            font-size: 18px;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+        /* Layout */
+        .container {
+            margin-top: 30px;
+            flex: 1; /* Faz a container ocupar o espaço disponível */
+            background-color: white; /* Fundo branco atrás das tarefas */
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .row {
+            display: flex;
+        }
+
+        /* Coluna de adicionar tarefa */
+        .add-task-card {
+            background: linear-gradient(135deg, #0099cc, #66ccff);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            height: fit-content;
+        }
+
+        .add-task-card h4 {
+            font-weight: 600;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+        /* Coluna de tarefas */
+        .task-list {
+            padding-left: 20px;
+        }
+
+        /* Estilo das tarefas */
+        .task-card {
+            background-color: #007bff; /* Fundo azul sólido */
+            color: #fff; /* Texto em branco */
+            border: none;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .task-card.completed {
+            background-color: #28a745; /* Verde sólido para tarefas concluídas */
+        }
+
+        .task-card:hover {
+            transform: scale(1.02);
+            background-color: #0056b3; /* Efeito de hover */
+        }
+
+        /* Botões */
+        .task-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+            border-radius: 8px;
+            padding: 5px 15px;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            border-color: #004494;
+        }
+
+        .btn-status.completed {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-status:not(.completed):hover {
+            background-color: #0056b3;
+            border-color: #004494;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Barra Superior -->
+<div class="header">
+    <a href="#" style="color: white; text-decoration: none;">Gerenciador de Tarefas</a>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Formulário para Adicionar Tarefa -->
+        <div class="col-md-4">
+            <div class="add-task-card">
+                <h4>Adicionar Tarefa</h4>
+                <form id="addTaskForm">
+                    <div class="form-group">
+                        <input type="text" id="taskInput" class="form-control" name="task" placeholder="Digite a nova tarefa" required>
+                    </div>
+                    <button type="submit" class="btn btn-block">Adicionar Tarefa</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Listagem das Tarefas -->
+        <div class="col-md-8 task-list" id="taskList">
+            <div class="task-card" id="task1">
+                <div class="task-actions">
+                    <div>
+                        <strong>Comprar mantimentos</strong>
+                    </div>
+                    <div>
+                        <button class="btn btn-status" onclick="toggleStatus('task1')">Não Concluído</button>
+                        <button class="btn btn-sm" onclick="editTask('task1')">Editar</button>
+                        <button class="btn btn-sm" onclick="deleteTask('task1')">Excluir</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-card" id="task2">
+                <div class="task-actions">
+                    <div>
+                        <strong>Estudar para o exame</strong>
+                    </div>
+                    <div>
+                        <button class="btn btn-status" onclick="toggleStatus('task2')">Não Concluído</button>
+                        <button class="btn btn-sm" onclick="editTask('task2')">Editar</button>
+                        <button class="btn btn-sm" onclick="deleteTask('task2')">Excluir</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="task-card" id="task3">
+                <div class="task-actions">
+                    <div>
+                        <strong>Fazer exercícios físicos</strong>
+                    </div>
+                    <div>
+                        <button class="btn btn-status" onclick="toggleStatus('task3')">Não Concluído</button>
+                        <button class="btn btn-sm" onclick="editTask('task3')">Editar</button>
+                        <button class="btn btn-sm" onclick="deleteTask('task3')">Excluir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Barra Inferior -->
+<div class="footer">
+    &copy; 2024 Gerenciador de Tarefas
+</div>
+
+<!-- Bootstrap JS CDN -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    // Função para alternar status de concluído/não concluído
+    function toggleStatus(taskId) {
+        var task = document.getElementById(taskId);
+        var statusButton = task.querySelector('.btn-status');
+
+        if (statusButton.classList.contains('completed')) {
+            statusButton.classList.remove('completed');
+            statusButton.innerText = 'Não Concluído';
+            task.classList.remove('completed');
+        } else {
+            statusButton.classList.add('completed');
+            statusButton.innerText = 'Concluído';
+            task.classList.add('completed');
+        }
+    }
+
+    // Função para adicionar uma nova tarefa
+    document.getElementById('addTaskForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var taskInput = document.getElementById('taskInput');
+        var taskList = document.getElementById('taskList');
+
+        // Criação do novo card de tarefa
+        var newTask = document.createElement('div');
+        newTask.className = 'task-card';
+        var taskId = 'task' + (taskList.children.length + 1); // Gerar ID único para cada tarefa
+        newTask.id = taskId;
+        newTask.innerHTML = `
+            <div class="task-actions">
+                <div>
+                    <strong>${taskInput.value}</strong>
+                </div>
+                <div>
+                    <button class="btn btn-status" onclick="toggleStatus('${taskId}')">Não Concluído</button>
+                    <button class="btn btn-sm" onclick="editTask('${taskId}')">Editar</button>
+                    <button class="btn btn-sm" onclick="deleteTask('${taskId}')">Excluir</button>
+                </div>
+            </div>
+        `;
+
+        // Adiciona a nova tarefa à lista
+        taskList.appendChild(newTask);
+
+        // Limpa o campo de entrada
+        taskInput.value = '';
+    });
+
+    // Função para excluir uma tarefa
+    function deleteTask(taskId) {
+        var task = document.getElementById(taskId);
+        task.remove();
+    }
+
+    // Função para editar uma tarefa
+    function editTask(taskId) {
+        // Para simplicidade, vamos apenas permitir editar o texto da tarefa.
+        var task = document.getElementById(taskId);
+        var taskName = task.querySelector('strong');
+        var newTaskName = prompt("Editar tarefa:", taskName.innerText);
+
+        if (newTaskName) {
+            taskName.innerText = newTaskName;
+        }
+    }
+</script>
+</body>
+</html>
